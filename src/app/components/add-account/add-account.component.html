@@ -1,0 +1,194 @@
+<div class="form-container container-fluid col-md-10">
+  <h2>Add Customer</h2>
+  <form (ngSubmit)="onSubmit()" #myForm="ngForm">
+    <div class="row col mb-3" style="display: flex">
+      <div class="form-group col" style="padding-right: 10px">
+        <label for="username">FirstName:</label>
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="custData.customerFirstname"
+          name="fname"
+          #fname="ngModel"
+          id="name"
+          required
+        />
+        <div
+          class="alert alert-danger"
+          *ngIf="fname.invalid && (fname.touched || fname.dirty)"
+        >
+          <div *ngIf="fname.errors?.['required']">FirstName is Required</div>
+        </div>
+      </div>
+
+      <div class="form-group col" style="padding-right: 10px">
+        <label for="username">MiddleName:</label>
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="custData.customerMiddletname"
+          name="mname"
+          #mname="ngModel"
+          id="name"
+          required
+        />
+        <div
+          class="alert alert-danger"
+          *ngIf="mname.invalid && (mname.touched || mname.dirty)"
+        >
+          <div *ngIf="mname.errors?.['required']">Middle is Required</div>
+        </div>
+      </div>
+
+      <div class="form-group col">
+        <label for="username">LastName:</label>
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="custData.customerLastname"
+          name="lname"
+          #lname="ngModel"
+          id="name"
+          required
+        />
+        <div
+          class="alert alert-danger"
+          *ngIf="lname.invalid && (lname.touched || lname.dirty)"
+        >
+          <div *ngIf="lname.errors?.['required']">LastName is Required</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row col mb-3" style="display: flex">
+      <div class="form-group col">
+        <label for="text">CustomerAddress:</label>
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="custData.customerAddress"
+          #caddress="ngModel"
+          name="address"
+          required
+        />
+        <div
+          class="alert alert-danger"
+          *ngIf="caddress.invalid && (caddress.touched || caddress.dirty)"
+        >
+          <div *ngIf="caddress.errors?.['required']">Address is Required</div>
+        </div>
+      </div>
+      <div class="form-group col">
+        <label for="mobile">CustomerMobile:</label>
+        <input
+          class="form-control"
+          type="number"
+          id="mobileNumber"
+          name="mobileNumber"
+          [(ngModel)]="custData.customerMobileno"
+          #mobileNumber="ngModel"
+          required
+          pattern="{{ mobilePattern }}"
+        />
+        <div
+          *ngIf="
+            mobileNumber.invalid && (mobileNumber.dirty || mobileNumber.touched)
+          "
+          class="alert alert-danger"
+        >
+          <div *ngIf="mobileNumber.errors?.['required']">
+            Mobile number is required.
+          </div>
+          <div *ngIf="mobileNumber.errors?.['pattern']">
+            Mobile number must be 10 digits.
+          </div>
+        </div>
+      </div>
+      <div class="form-group col">
+        <label for="aadhar">CustomerAadharNo:</label>
+        <input
+          type="number"
+          class="form-control"
+          [(ngModel)]="custData.customerAadharno"
+          #caadhar="ngModel"
+          name="aadhar"
+          required
+          pattern="{{ aadharPattern }}"
+        />
+        <div
+          *ngIf="caadhar.invalid && (caadhar.dirty || caadhar.touched)"
+          class="alert alert-danger"
+        >
+          <div *ngIf="caadhar.errors?.['required']">
+            Aadhar Number is required
+          </div>
+          <div *ngIf="caadhar.errors?.['pattern']">
+            Aadhar Number must be 12 digits
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row col mb-3" style="display: flex">
+      <div class="form-group col">
+        <label for="username">CustomerEmail:</label>
+        <input
+          type="email"
+          class="form-control"
+          [(ngModel)]="custData.customerEmail"
+          name="email"
+          #email="ngModel"
+          pattern="{{ emailPattern }}"
+        />
+
+        <div class="alert alert-danger" *ngIf="email.errors?.['pattern']">
+          Email is not valid
+        </div>
+      </div>
+
+      <div class="form-group col">
+        <label for="username">CustomerDOB:</label>
+        <input
+          class="form-control"
+          [(ngModel)]="custData.customerDob"
+          type="date"
+          #cdob="ngModel"
+          name="dob"
+          required
+        />
+        <div
+          class="alert alert-danger"
+          *ngIf="cdob.invalid && (cdob.touched || cdob.dirty)"
+        >
+          <div *ngIf="cdob.errors?.['required']">Date of Birth is required</div>
+        </div>
+      </div>
+
+      <div class="form-group col">
+        <label for="type">AccountType:</label>
+        <select
+          class="form-control"
+          [(ngModel)]="custData.accountType"
+          #type="ngModel"
+          name="type"
+          required
+        >
+          <option *ngFor="let t of [0, 1]" [value]="t">
+            {{ t | accountType }}
+          </option>
+        </select>
+        <div [hidden]="type.valid || type.pristine" class="alert alert-danger">
+          Type is Required
+        </div>
+      </div>
+    </div>
+
+    <button
+      [disabled]="!myForm.form.valid"
+      type="submit"
+      class="btn btn-success"
+    >
+      AddCustomer
+    </button>
+  </form>
+</div>

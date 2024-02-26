@@ -1,0 +1,68 @@
+<table
+  class="table table-hover"
+  *ngIf="customerData; else elseCustomer"
+  id="mytable"
+>
+  <thead>
+    <tr>
+      <th *ngFor="let h of headerData">
+        {{ h }}
+      </th>
+    </tr>
+  </thead>
+  <tbody *ngFor="let cust of customerData">
+    <tr>
+      <td>
+        {{
+          cust.customerFirstname +
+            " " +
+            cust.customerMiddletname +
+            " " +
+            cust.customerLastname
+        }}
+      </td>
+      <td>
+        {{ cust.customerAddress }}
+      </td>
+      <td>
+        {{ cust.customerMobileno }}
+      </td>
+      <td>
+        {{ cust.customerAadharno }}
+      </td>
+      <td>
+        {{ cust.customerEmail }}
+      </td>
+      <td>
+        {{ cust.customerDob | date }}
+      </td>
+      <td>
+        <button
+          class="btn btn-success"
+          (click)="navigateToAccount(cust.customerId!)"
+        >
+          Details
+        </button>
+      </td>
+      <td>
+        <button class="btn btn-primary" (click)="opendEditDialog(cust)">
+          Edit
+        </button>
+      </td>
+      <td>
+        <button class="btn btn-danger" (click)="openDelete(cust.customerId!)">
+          Delete
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<div>
+  <br />
+</div>
+<div></div>
+
+<ng-template #elseCustomer>
+  <h1>Customer Not Found</h1>
+</ng-template>

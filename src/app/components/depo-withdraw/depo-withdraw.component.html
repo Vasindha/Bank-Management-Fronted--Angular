@@ -1,0 +1,76 @@
+<div class="dialog-box">
+  <div mat-dialog-content>
+    <div class="form-container container-fluid col-md-10">
+      <h2>Transaction</h2>
+      <form #transactionForm="ngForm">
+        <div class="row mb-3" style="display: flex">
+          <div class="form-group col" style="padding-right: 10px">
+            <label for="amount">Transaction Amount:</label>
+            <input
+              type="number"
+              min="1"
+              class="form-control"
+              [(ngModel)]="transactionData.transactionAmount"
+              #amount="ngModel"
+              name="amount"
+              required
+            />
+            <div
+              class="alert alert-danger"
+              *ngIf="amount.invalid && ( amount.dirty)"
+            >
+              <div *ngIf="amount.errors?.['min']">minimum value is 1</div>
+              <div *ngIf="amount.errors?.['required']">
+                transactionAmount is Required
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group col">
+            <label for="type">AccountType:</label>
+            <select
+              class="form-control"
+              [(ngModel)]="transactionData.tansactionType"
+              name="type"
+              required
+            >
+              <option *ngFor="let t of [0, 1]" [value]="t">
+                {{ t | transactionType }}
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group col" style="padding-right: 10px">
+          <label for="amount">Transaction Description:</label>
+          <input
+            type="text"
+            class="form-control"
+            [(ngModel)]="transactionData.transactionDescription"
+            #desc="ngModel"
+            name="amount"
+          />
+        </div>
+
+        <div
+          mat-dialog-actions
+          class="mb-5"
+          style="justify-content: space-between"
+        >
+          <button
+            [disabled]="!transactionForm.form.valid"
+            type="submit"
+            mat-dialog-close
+            class="btn btn-success"
+            (click)="doTransaction()"
+          >
+            Transaction
+          </button>
+          <button class="btn btn-primary" mat-dialog-close >
+            Cancel
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

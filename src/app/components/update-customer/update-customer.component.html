@@ -1,0 +1,166 @@
+<div class="form-container container-fluid col-md-10">
+  <h4>Edit Customer</h4>
+  <form  #editForm="ngForm">
+    <div class="row mb-3" style="display: flex">
+      <div class="form-group col" style="padding-right: 10px">
+        <label for="username">FirstName:</label>
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="editData.customerFirstname"
+          name="fname"
+          #fname="ngModel"
+          id="name"
+          required
+        />
+        <div
+          class="alert alert-danger"
+          *ngIf="fname.invalid && (fname.touched || fname.dirty)"
+        >
+          <div *ngIf="fname.errors?.['required']">FirstName is Required</div>
+        </div>
+      </div>
+
+      <div class="form-group col" style="padding-right: 10px">
+        <label for="username">MiddleName:</label>
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="editData.customerMiddletname"
+          name="mname"
+          #mname="ngModel"
+          id="name"
+          required
+        />
+        <div
+          class="alert alert-danger"
+          *ngIf="mname.invalid && (mname.touched || mname.dirty)"
+        >
+          <div *ngIf="mname.errors?.['required']">Middle is Required</div>
+        </div>
+      </div>
+
+      <div class="form-group col">
+        <label for="username">LastName:</label>
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="editData.customerLastname"
+          name="lname"
+          #lname="ngModel"
+          id="name"
+          required
+        />
+        <div
+          class="alert alert-danger"
+          *ngIf="lname.invalid && (lname.touched || lname.dirty)"
+        >
+          <div *ngIf="lname.errors?.['required']">LastName is Required</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-3" style="display: flex">
+      <div class="form-group col">
+        <label for="text">CustomerAddress:</label>
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="editData.customerAddress"
+          #caddress="ngModel"
+          name="address"
+          required
+        />
+        <div
+          class="alert alert-danger"
+          *ngIf="caddress.invalid && (caddress.touched || caddress.dirty)"
+        >
+          <div *ngIf="caddress.errors?.['required']">Address is Required</div>
+        </div>
+      </div>
+      <div class="form-group col">
+        <label for="mobile">CustomerMobile:</label>
+        <input
+          class="form-control"
+          type="tel"
+          id="mobileNumber"
+          name="mobileNumber"
+          [(ngModel)]="editData.customerMobileno"
+          #mobileNumber="ngModel"
+          pattern="{{ mobilePattern }}"
+          required
+        />
+        <div
+          *ngIf="
+            mobileNumber.invalid && (mobileNumber.dirty || mobileNumber.touched)
+          "
+          class="alert alert-danger"
+        >
+          <div *ngIf="mobileNumber.errors?.['required']">
+            Mobile number is required.
+          </div>
+          <div *ngIf="mobileNumber.errors?.['pattern']">
+            Mobile number must be 10 digits.
+          </div>
+        </div>
+      </div>
+      <div class="form-group col">
+        <label for="aadhar">CustomerAadharNo:</label>
+        <input
+          [disabled]="true"
+          type="number"
+          class="form-control"
+          [(ngModel)]="editData.customerAadharno"
+          #caadhar="ngModel"
+          name="aadhar"
+        />
+      </div>
+    </div>
+
+    <div class="row mb-3" style="display: flex">
+      <div class="form-group col">
+        <label for="username">CustomerEmail:</label>
+        <input
+          type="email"
+          class="form-control"
+          [(ngModel)]="editData.customerEmail"
+          name="email"
+          #email="ngModel"
+          pattern="{{ emailPattern }}"
+        />
+        <div class="alert alert-danger" *ngIf="email.errors?.['pattern']">
+          Email is Not Valid
+        </div>
+      </div>
+
+      <div class="form-group col">
+        <label for="username">CustomerDOB:</label>
+        <input
+          class="form-control"
+          [(ngModel)]="editData.customerDob"
+          type="date"
+          #cdob="ngModel"
+          name="dob"
+          required
+        />
+        <div
+          class="alert alert-danger"
+          *ngIf="cdob.invalid && (cdob.touched || cdob.dirty)"
+        ></div>
+      </div>
+    </div>
+
+    <div style="justify-content: space-between;">
+      <button
+        [disabled]="editForm.form.invalid"
+        type="submit"
+        class="btn btn-success"
+        (click)="editCustomer()"
+      >
+        EditCustomer
+      </button>
+
+      <button  type="submit" class="btn btn-info " style="margin-left: 10px;" (click)="closeDialog()">Cancel</button>
+    </div>
+  </form>
+</div>

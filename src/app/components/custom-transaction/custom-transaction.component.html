@@ -1,0 +1,136 @@
+<div *ngIf="setransactionBox == false else elseButton" style="margin-top: 20px ;overflow:auto;" class="form-container container-fluid col-md-10">
+    <button class="btn btn-info" (click)="toggle()">Get Transaction -></button>
+  </div>
+
+  <ng-template #elseButton>
+    <div style="margin-top: 20px" class="form-container container-fluid col-md-10">
+
+    <button class="btn btn-info" (click)="toggle()">Do Transaction -></button>
+    </div>
+  </ng-template>
+  
+
+<div
+  *ngIf="setransactionBox == false else elseblock "
+  class="form-container container-fluid col-md-10"
+>
+  <h3>Transaction</h3>
+  <form (ngSubmit)="doTransaction()" #transactionForm="ngForm">
+    <div class="row mb-3" style="display: flex">
+      <div class="form-group col" style="padding-right: 10px">
+        <label for="amount">Account Number:</label>
+        <input
+          type="number"
+          class="form-control"
+          [(ngModel)]="transactionData.accountNumber"
+          #accNumber="ngModel"
+          name="accNumber"
+          required
+        />
+        <div
+          class="alert alert-danger"
+          *ngIf="accNumber.invalid && (accNumber.dirty || accNumber.touched)"
+        >
+          <div *ngIf="accNumber.errors?.['required'] ">
+            Account Number is Required
+          </div>
+        </div>
+      </div>
+      <div class="form-group col" style="padding-right: 10px">
+        <label for="amount">Transaction Amount:</label>
+        <input
+          type="number"
+          min="1"
+          class="form-control"
+          [(ngModel)]="transactionData.transactionAmount"
+          #amount="ngModel"
+          name="amount"
+          required
+        />
+        <div
+          class="alert alert-danger"
+          *ngIf="amount.invalid && (amount.dirty || amount.touched)"
+        >
+        <div *ngIf="amount.errors?.['min']">
+          minimum amount is 1
+        </div>
+          <div *ngIf="amount.errors?.['required']">
+            transactionAmount is Required
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group col">
+        <label for="type">AccountType:</label>
+        <select
+          class="form-control"
+          [(ngModel)]="transactionData.tansactionType"
+          name="type"
+          required
+        >
+          <option *ngFor="let t of [0, 1]" [value]="t">
+            {{ t | transactionType }}
+          </option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group col" style="padding-right: 10px">
+      <label for="amount">Transaction Description:</label>
+      <input
+        type="text-area"
+        maxlength="300"
+        class="form-control"
+        [(ngModel)]="transactionData.transactionDescription"
+        #desc="ngModel"
+        name="desc"
+      />
+    </div>
+    <button
+      style="margin-top: 12px"
+      [disabled]="!transactionForm.form.valid"
+      type="submit"
+      class="btn btn-success"
+    >
+      Transaction
+    </button>
+  </form>
+</div>
+
+<ng-template #elseblock class="form-container container-fluid col-md-10">
+  <div class="row mb-3" class="form-container container-fluid col-md-10">
+    <div class="form-group col" style="padding-right: 10px; margin-top: 20px">
+      <form #accounForm="ngForm">
+        <label for="amount">Account Number:</label>
+        <input
+          type="number"
+          class="form-control"
+          [(ngModel)]="accountNumber"
+          #accNumber1="ngModel"
+          name="accNumber1"
+          required
+        />
+        <div
+          class="alert alert-danger"
+          *ngIf="accNumber1.invalid && (accNumber1.dirty || accNumber1.touched)"
+        >
+          <div *ngIf="accNumber1.errors?.['required'] ">
+            Account Number is Required
+          </div>
+        </div>
+        <button
+          style="margin-top: 12px"
+          [disabled]="!accounForm.form.valid"
+          type="submit"
+          class="btn btn-success" routerLink="./transaction/{{accountNumber}}" 
+        >
+          See Transaction
+        </button>
+      </form>
+    </div>
+  </div>
+</ng-template> 
+<div  class="form-container container-fluid col-md-10" style="margin-top: 30px;">
+    <router-outlet></router-outlet>
+</div>
+
