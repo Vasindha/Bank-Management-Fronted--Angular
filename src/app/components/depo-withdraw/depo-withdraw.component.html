@@ -1,7 +1,7 @@
 <div class="dialog-box">
   <div mat-dialog-content>
     <div class="form-container container-fluid col-md-10">
-      <h2>Transaction</h2>
+      <h4>Transaction</h4>
       <form #transactionForm="ngForm">
         <div class="row mb-3" style="display: flex">
           <div class="form-group col" style="padding-right: 10px">
@@ -34,13 +34,13 @@
               name="type"
               required
             >
-              <option *ngFor="let t of [0, 1]" [value]="t">
+              <option *ngFor="let t of [0, 1,2]" [value]="t">
                 {{ t | transactionType }}
               </option>
             </select>
           </div>
         </div>
-
+<div class="row ">
         <div class="form-group col" style="padding-right: 10px">
           <label for="amount">Transaction Description:</label>
           <input
@@ -51,14 +51,40 @@
             name="amount"
           />
         </div>
-
+        <div *ngIf="transactionData.tansactionType == 2" class="form-group col" style="padding-right: 10px">
+          <label for="account">Receiver Account Number:</label>
+            <input
+              type="number"
+              class="form-control"
+              [(ngModel)]="transactionData.receiverAccountNumber"
+              #recAccNumber="ngModel"
+              name="recaccNumber"
+              required
+            />
+            <div class="alert alert-danger" *ngIf="transactionData.accountNumber == transactionData.receiverAccountNumber">
+              Account Number is Same
+            </div>
+            <div
+              class="alert alert-danger"
+              
+              *ngIf="recAccNumber.invalid && (recAccNumber.dirty || recAccNumber.touched)"
+            >
+              <div *ngIf="recAccNumber.errors?.['required'] ">
+                Account Number is Required
+              </div>
+              
+            </div>
+          
+          
+        </div>
+</div>
         <div
           mat-dialog-actions
           class="mb-5"
           style="justify-content: space-between"
         >
           <button
-            [disabled]="!transactionForm.form.valid"
+            [disabled]="!transactionForm.form.valid || transactionData.accountNumber == transactionData.receiverAccountNumber "
             type="submit"
             mat-dialog-close
             class="btn btn-success"

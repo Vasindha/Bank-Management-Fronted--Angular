@@ -183,12 +183,24 @@
       </div>
     </div>
 
-    <button
+    <button *ngIf="isLoadbtn==false"
       [disabled]="!myForm.form.valid"
       type="submit"
       class="btn btn-success"
     >
-      AddCustomer
+    Add Account
+     
     </button>
+    <button *ngIf="isLoadbtn==true"
+    disabled
+   
+    class="btn btn-success"
+  >
+  <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+  Loading...
+   
+  </button>
+
   </form>
 </div>
+

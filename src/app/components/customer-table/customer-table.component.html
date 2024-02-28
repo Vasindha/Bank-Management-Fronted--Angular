@@ -1,219 +1,193 @@
-<div class="row col mb-3 container-fluid">
-  <div class="col">
-    <nav class="navbar navbar-light bg-light">
-      <div class="container-fluid row mb-3">
-        <form #aadharForm="ngForm" class="d-flex input-group w-auto">
-          <input
-            type="number"
-            class="form-control rounded"
-            [(ngModel)]="customerAccount"
-            [ngModelOptions]="{ standalone: true }"
-            #caadhar="ngModel"
-            placeholder="Enter Aadhar Number"
-            aria-label="Search"
-            pattern="{{ aadharPattern }}"
-          />
-          <div
-            *ngIf="caadhar.errors?.['pattern']"
-            class="alert alert-danger"
-            style="height: 50px"
-          >
-            Aadhar Number must be 12 digits
-          </div>
-          <button
-            [disabled]="!caadhar.touched || !aadharForm.form.valid"
-            class="btn btn-info"
-            style="margin-left: 20px"
-            routerLink="/search"
-            [fragment]="'' + customerAccount"
-          >
-            search
-          </button>
-        </form>
-      </div>
-    </nav>
+<div>
+  <div class="row col mb-3 container-fluid">
+    <div class="col">
+      <nav class="navbar navbar-light bg-light">
+        <div class="container-fluid row mb-3">
+          <form #aadharForm="ngForm" class="d-flex input-group w-auto">
+            <input
+              type="number"
+              class="form-control rounded"
+              [(ngModel)]="customerAadhar"
+              [ngModelOptions]="{ standalone: true }"
+              #caadhar="ngModel"
+              placeholder="Enter Aadhar Number"
+              aria-label="Search"
+              pattern="{{ aadharPattern }}"
+            />
+            <div
+              *ngIf="caadhar.errors?.['pattern']"
+              class="alert alert-danger"
+              style="height: 50px"
+            >
+              Aadhar Number must be 12 digits
+            </div>
+            <button
+              [disabled]="!caadhar.touched || !aadharForm.form.valid"
+              class="btn btn-info"
+              style="margin-left: 20px"
+              routerLink="/search"
+              [fragment]="'' + customerAadhar"
+            >
+              search
+            </button>
+          </form>
+        </div>
+      </nav>
+    </div>
+    <div class="col">
+      <nav class="navbar navbar-light bg-light">
+        <div class="container-fluid row mb-3">
+          <form #accountForm="ngForm" class="d-flex input-group w-auto">
+            <input
+              type="number"
+              class="form-control rounded"
+              [(ngModel)]="customerAccount"
+              [ngModelOptions]="{ standalone: true }"
+              #caccount="ngModel"
+              placeholder="Enter Account Number"
+              aria-label="Search"
+              pattern="{{ aadharPattern }}"
+            />
+            <div
+              *ngIf="caccount.errors?.['pattern']"
+              class="alert alert-danger"
+              style="height: 50px"
+            >
+              Account Number must be 12 digits
+            </div>
+            <button
+              [disabled]="!caccount.touched || !accountForm.form.valid"
+              class="btn btn-info"
+              style="margin-left: 20px"
+              routerLink="/search"
+              [fragment]="'' + customerAccount"
+            >
+              search
+            </button>
+          </form>
+        </div>
+      </nav>
+    </div>
+    <div class="col">
+      <nav class="navbar navbar-light bg-light">
+        <div class="container-fluid row mb-3">
+          <form #nameForm="ngForm" class="d-flex input-group w-auto">
+            <input
+              type="text"
+              class="form-control rounded"
+              [(ngModel)]="customerName"
+              [ngModelOptions]="{ standalone: true }"
+              #cname="ngModel"
+              placeholder="Enter Name"
+              aria-label="Search"
+              pattern="{{ namePattern }}"
+            />
+            <div
+              *ngIf="cname.errors?.['pattern']"
+              class="alert alert-danger"
+              style="height: 50px"
+            >
+              Enter Valid name
+            </div>
+            <button
+              [disabled]="!cname.touched || !nameForm.form.valid"
+              class="btn btn-info"
+              style="margin-left: 20px"
+              routerLink="/search"
+              [fragment]="customerName"
+            >
+              search
+            </button>
+          </form>
+        </div>
+      </nav>
+    </div>
   </div>
-  <div class="col">
-    <nav class="navbar navbar-light bg-light">
-      <div class="container-fluid row mb-3">
-        <form #accountForm="ngForm" class="d-flex input-group w-auto">
-          <input
-            type="number"
-            class="form-control rounded"
-            [(ngModel)]="customerAadhar"
-            [ngModelOptions]="{ standalone: true }"
-            #caccount="ngModel"
-            placeholder="Enter Account Number"
-            aria-label="Search"
-            pattern="{{ aadharPattern }}"
-          />
-          <div
-            *ngIf="caccount.errors?.['pattern']"
-            class="alert alert-danger"
-            style="height: 50px"
-          >
-            Account Number must be 12 digits
-          </div>
-          <button
-            [disabled]="!caccount.touched || !accountForm.form.valid"
-            class="btn btn-info"
-            style="margin-left: 20px"
-            routerLink="/search"
-            [fragment]="'' + customerAadhar"
-          >
-            search
-          </button>
-        </form>
-      </div>
-    </nav>
-  </div>
-  <div class="col">
-    <nav class="navbar navbar-light bg-light">
-      <div class="container-fluid row mb-3">
-        <form #nameForm="ngForm" class="d-flex input-group w-auto">
-          <input
-            type="text"
-            class="form-control rounded"
-            [(ngModel)]="customerName"
-            [ngModelOptions]="{ standalone: true }"
-            #cname="ngModel"
-            placeholder="Enter Name"
-            aria-label="Search"
-            pattern="{{ namePattern }}"
-          />
-          <div
-            *ngIf="cname.errors?.['pattern']"
-            class="alert alert-danger"
-            style="height: 50px"
-          >
-            Enter Valid name
-          </div>
-          <button
-            [disabled]="!cname.touched || !nameForm.form.valid"
-            class="btn btn-info"
-            style="margin-left: 20px"
-            routerLink="/search"
-            [fragment]="customerName"
-          >
-            search
-          </button>
-        </form>
-      </div>
-    </nav>
-  </div>
-</div>
-
-<!-- <div class="container-fluid">
-  <table class="table table-hover" *ngIf="customerData else loader" id="mytable">
-    <thead>
-      <tr>
-        <th *ngFor="let h of headerData">
-          {{ h }}
-        </th>
-      </tr>
-    </thead>
-    <tbody *ngFor="let cust of customerData">
-      <tr>
-        <td>
+  <div class="mat-elevation-z8 container-fluid">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+      <ng-container matColumnDef="CUSTOMER_NAME">
+        <th mat-header-cell *matHeaderCellDef>CUSTOMER_NAME</th>
+        <td mat-cell *matCellDef="let element">
           {{
-            cust.customerFirstname +
+            element.customerFirstname +
               " " +
-              cust.customerMiddletname +
+              element.customerMiddletname +
               " " +
-              cust.customerLastname
+              element.customerLastname
           }}
         </td>
-        <td>
-          {{ cust.customerAddress }}
-        </td>
-        <td>
-          {{ cust.customerMobileno }}
-        </td>
-        <td>
-          {{ cust.customerAadharno }}
-        </td>
-        <td>
-          {{ cust.customerEmail }}
-        </td>
-        <td>
-          {{ cust.customerDob | date }}
-        </td>
-        <td>
-          <button
-            class="btn btn-success"
-            (click)="
-              navigateToAccount(cust.customerId!, cust.customerAadharno!)
-            "
-          >
-            Details
-          </button>
-        </td>
-        <td>
-          <button class="btn btn-primary" (click)="openEdit(cust)">Edit</button>
-        </td>
-        <td>
-          <button class="btn btn-danger" (click)="openDelete(cust.customerId!)">
-            Delete
-          </button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div> -->
+      </ng-container>
 
-<div class="mat-elevation-z8 container-fluid" >
-  <table mat-table [dataSource]="dataSource"  class="mat-elevation-z8">
-
-    <ng-container matColumnDef="CUSTOMER_NAME">
-      <th mat-header-cell *matHeaderCellDef> CUSTOMER_NAME</th>
-      <td mat-cell *matCellDef="let element">{{element.customerFirstname+" "+element.customerMiddletname+" "+element.customerLastname}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="CUSTOMER_ADDRESS">
+      <ng-container matColumnDef="CUSTOMER_ADDRESS">
         <th mat-header-cell *matHeaderCellDef>CUSTOMER_ADDRESS</th>
-        <td mat-cell *matCellDef="let element"> {{element.customerAddress}}</td>
+        <td mat-cell *matCellDef="let element">
+          {{ element.customerAddress }}
+        </td>
       </ng-container>
       <ng-container matColumnDef="MOBILE">
         <th mat-header-cell *matHeaderCellDef>MOBILE</th>
-        <td mat-cell *matCellDef="let element"> {{element.customerMobileno}}</td>
+        <td mat-cell *matCellDef="let element">
+          {{ element.customerMobileno }}
+        </td>
       </ng-container>
       <ng-container matColumnDef="AADHAR_NO">
         <th mat-header-cell *matHeaderCellDef>AADHAR_NO</th>
-        <td mat-cell *matCellDef="let element"> {{element.customerAadharno}}</td>
+        <td mat-cell *matCellDef="let element">
+          {{ element.customerAadharno }}
+        </td>
       </ng-container>
       <ng-container matColumnDef="EMAIL">
         <th mat-header-cell *matHeaderCellDef>EMAIL</th>
-        <td mat-cell *matCellDef="let element"> {{element.customerEmail}}</td>
+        <td mat-cell *matCellDef="let element">
+          {{ element.customerEmail }}
+        </td>
       </ng-container>
       <ng-container matColumnDef="DATE_OF_BIRTH">
         <th mat-header-cell *matHeaderCellDef>DATE_OF_BIRTH</th>
-        <td mat-cell *matCellDef="let element"> {{element.customerDob | date}}</td>
+        <td mat-cell *matCellDef="let element">
+          {{ element.customerDob | date }}
+        </td>
       </ng-container>
       <ng-container matColumnDef="ACCOUNT">
         <th mat-header-cell *matHeaderCellDef>ACCOUNT</th>
-        <td mat-cell *matCellDef="let element"> <button class="btn btn-success" (click)="navigateToAccount(element.customerId,element.customerAadharno)">Account</button></td>
+        <td mat-cell *matCellDef="let element">
+          <button
+            class="btn btn-success"
+            (click)="
+              navigateToAccount(element.customerId, element.customerAadharno)
+            "
+          >
+            Account
+          </button>
+        </td>
       </ng-container>
       <ng-container matColumnDef="EDIT">
         <th mat-header-cell *matHeaderCellDef>EDIT</th>
-        <td mat-cell *matCellDef="let element"> <button class="btn btn-info" (click)="openEdit(element)">Edit</button></td>
+        <td mat-cell *matCellDef="let element">
+          <button class="btn btn-info" (click)="openEdit(element)">Edit</button>
+        </td>
       </ng-container>
       <ng-container matColumnDef="DELETE">
         <th mat-header-cell *matHeaderCellDef>DELETE</th>
-        <td mat-cell *matCellDef="let element"> <button class="btn btn-danger" (click)="openDelete(element.customerId)">delete</button></td>
+        <td mat-cell *matCellDef="let element">
+          <button
+            class="btn btn-danger"
+            (click)="openDelete(element.customerId)"
+          >
+            delete
+          </button>
+        </td>
       </ng-container>
-      
 
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table>
-
-  <mat-paginator  [pageSizeOptions]="[5, 10, 20]"
-                 showFirstLastButtons
-                 aria-label="Select page of periodic elements">
-  </mat-paginator>
+    <mat-paginator
+      [pageSizeOptions]="[5, 10, 20]"
+      showFirstLastButtons
+      aria-label="Select page of periodic elements"
+    >
+    </mat-paginator>
+  </div>
 </div>
-
-<ng-template #loader>
-  <!-- <app-loader></app-loader> -->
-</ng-template>

@@ -1,17 +1,22 @@
-<div *ngIf="setransactionBox == false else elseButton" style="margin-top: 20px ;overflow:auto;" class="form-container container-fluid col-md-10">
-    <button class="btn btn-info" (click)="toggle()">Get Transaction -></button>
-  </div>
+<div
+  *ngIf="setransactionBox == false; else elseButton"
+  style="margin-top: 20px; overflow: auto"
+  class="form-container container-fluid col-md-10"
+>
+  <button class="btn btn-info" (click)="toggle()">Get Transaction -></button>
+</div>
 
-  <ng-template #elseButton>
-    <div style="margin-top: 20px" class="form-container container-fluid col-md-10">
-
+<ng-template #elseButton>
+  <div
+    style="margin-top: 20px"
+    class="form-container container-fluid col-md-10"
+  >
     <button class="btn btn-info" (click)="toggle()">Do Transaction -></button>
-    </div>
-  </ng-template>
-  
+  </div>
+</ng-template>
 
 <div
-  *ngIf="setransactionBox == false else elseblock "
+  *ngIf="setransactionBox == false; else elseblock"
   class="form-container container-fluid col-md-10"
 >
   <h3>Transaction</h3>
@@ -51,9 +56,7 @@
           class="alert alert-danger"
           *ngIf="amount.invalid && (amount.dirty || amount.touched)"
         >
-        <div *ngIf="amount.errors?.['min']">
-          minimum amount is 1
-        </div>
+          <div *ngIf="amount.errors?.['min']">minimum amount is 1</div>
           <div *ngIf="amount.errors?.['required']">
             transactionAmount is Required
           </div>
@@ -61,38 +64,89 @@
       </div>
 
       <div class="form-group col">
-        <label for="type">AccountType:</label>
+        <label for="type">Transaction Type:</label>
         <select
           class="form-control"
           [(ngModel)]="transactionData.tansactionType"
           name="type"
           required
         >
-          <option *ngFor="let t of [0, 1]" [value]="t">
+          <option *ngFor="let t of [0, 1, 2]" [value]="t">
             {{ t | transactionType }}
           </option>
         </select>
       </div>
     </div>
+    <div class="row mb-3">
+      <div class="form-group col" style="padding-right: 10px">
+        <label for="amount">Transaction Description:</label>
+        <input
+          type="text-area"
+          maxlength="300"
+          class="form-control"
+          [(ngModel)]="transactionData.transactionDescription"
+          #desc="ngModel"
+          name="desc"
+        />
+      </div>
+      <div
+        *ngIf="transactionData.tansactionType == 2"
+        class="form-group col"
+        style="padding-right: 10px"
+      >
+        <label for="account">Receiver Account Number:</label>
+        <input
+          type="number"
+          class="form-control"
+          [(ngModel)]="transactionData.receiverAccountNumber"
+          #recAccNumber="ngModel"
+          name="recaccNumber"
+          required
+        />
+        <div
+          class="alert alert-danger"
+          *ngIf="
+            transactionData.receiverAccountNumber ==
+            transactionData.accountNumber
+          "
+        >
+          Account Number is Same
+        </div>
 
-    <div class="form-group col" style="padding-right: 10px">
-      <label for="amount">Transaction Description:</label>
-      <input
-        type="text-area"
-        maxlength="300"
-        class="form-control"
-        [(ngModel)]="transactionData.transactionDescription"
-        #desc="ngModel"
-        name="desc"
-      />
+        <div
+          class="alert alert-danger"
+          *ngIf="
+            recAccNumber.invalid && (recAccNumber.dirty || recAccNumber.touched)
+          "
+        >
+          <div *ngIf="recAccNumber.errors?.['required'] ">
+            Account Number is Required
+          </div>
+        </div>
+      </div>
     </div>
+
     <button
+      *ngIf="isTransactionBtn == false"
       style="margin-top: 12px"
-      [disabled]="!transactionForm.form.valid"
+      [disabled]="!transactionForm.form.valid || transactionData.accountNumber == transactionData.receiverAccountNumber"
       type="submit"
       class="btn btn-success"
     >
       Transaction
+    </button>
+    <button
+      *ngIf="isTransactionBtn == true"
+      style="margin-top: 12px"
+      disabled
+      class="btn btn-success"
+    >
+      <span
+        class="spinner-border spinner-border-sm"
+        role="status"
+        aria-hidden="true"
+      ></span>
+      Loading...
     </button>
   </form>
 </div>
@@ -100,7 +154,7 @@
 <ng-template #elseblock class="form-container container-fluid col-md-10">
   <div class="row mb-3" class="form-container container-fluid col-md-10">
     <div class="form-group col" style="padding-right: 10px; margin-top: 20px">
-      <form #accounForm="ngForm">
+      <form #accountForm="ngForm">
         <label for="amount">Account Number:</label>
         <input
           type="number"
@@ -120,17 +174,17 @@
         </div>
         <button
           style="margin-top: 12px"
-          [disabled]="!accounForm.form.valid"
+          [disabled]="!accountForm.form.valid"
           type="submit"
-          class="btn btn-success" routerLink="./transaction/{{accountNumber}}" 
+          class="btn btn-success"
+          routerLink="./transaction/{{ accountNumber }}"
         >
           See Transaction
         </button>
       </form>
     </div>
   </div>
-</ng-template> 
-<div  class="form-container container-fluid col-md-10" style="margin-top: 30px;">
-    <router-outlet></router-outlet>
+</ng-template>
+<div class="form-container container-fluid col-md-10" style="margin-top: 30px">
+  <router-outlet></router-outlet>
 </div>
-

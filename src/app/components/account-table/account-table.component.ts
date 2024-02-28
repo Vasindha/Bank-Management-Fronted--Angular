@@ -62,7 +62,7 @@ element: any;
   }
   ngOnInit(): void {
     this.route.fragment.subscribe((addhar) => {
-      console.log(addhar, 'this is');
+      
       this.addAccountData.customerAadharno = Number(addhar);
     });
     this.route.paramMap.subscribe(

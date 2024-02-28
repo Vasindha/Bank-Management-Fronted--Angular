@@ -24,7 +24,10 @@ export class TransactionService {
     return this.httpService.get<ITransaction[]>(this.transactionUrl);
   }
 
-  doTransaction(transactionData:ITransaction):Observable<any>{
+  doTransaction(transactionData:ITransaction):Observable<string>{
     return this.httpService.post(`${this.transactionUrl}/Deposite`,transactionData,{responseType:'text'})
+  }
+  doTransfer(transactionData:ITransaction):Observable<string>{
+    return this.httpService.post(`${this.transactionUrl}/Transfer`,transactionData,{responseType:'text'})
   }
 }

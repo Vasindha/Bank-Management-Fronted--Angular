@@ -18,6 +18,7 @@ import { MatTableDataSource } from '@angular/material/table';
 })
 export class CustomerTableComponent implements OnInit ,AfterViewInit {
   customerData!: ICustomer[];
+  isLoad=true;
   @ViewChild(MatPaginator) paginator?:MatPaginator;
   dataSource = new MatTableDataSource<ICustomer>(this.customerData);
   displayedColumns :string[]= [
@@ -48,11 +49,16 @@ export class CustomerTableComponent implements OnInit ,AfterViewInit {
 
   ngOnInit(): void {
     this.customerService.getCustomerData().subscribe((data) => {
+      this.isLoad = false;
       this.customerData = data;
      
       this.dataSource.data = this.customerData
-      console.log(this.dataSource)
-    });
+     
+    },
+    error => {
+      this.isLoad = true;
+    }
+    );
   }
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator!;

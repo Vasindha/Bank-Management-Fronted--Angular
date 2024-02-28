@@ -1,6 +1,6 @@
 <table
   class="table table-hover"
-  *ngIf="customerData; else elseCustomer"
+  *ngIf="customerData.length; else elseCustomer"
   id="mytable"
 >
   <thead>
@@ -64,5 +64,7 @@
 <div></div>
 
 <ng-template #elseCustomer>
-  <h1>Customer Not Found</h1>
+  <div>
+    <app-loader></app-loader>
+  </div>
 </ng-template>

@@ -1,44 +1,52 @@
-<div class="container-fluid" style="overflow: auto">
-  <table
-    class="table table-hover"
-    *ngIf="transactionData.length; else elseTransaction"
-    id="mytable"
-    style="margin-left: 10px; margin-right: 20px"
-  >
-    <thead>
-      <tr>
-        <th *ngFor="let h of transactionColumn">
-          {{ h }}
-        </th>
-      </tr>
-    </thead>
-    <tbody *ngFor="let transaction of transactionData">
-      <tr>
-        <td>
-          {{ transaction.transactionDate | date : "medium" }}
-        </td>
-        <td>
-          {{ transaction.tansactionType! | transactionType }}
-        </td>
+<div class="container-fluid col-md-10">
+  <igx-list>
+    <igx-list-item isHeader="true" style="font-size: large" class="text-info">
+      TRANSACTION DETAILS</igx-list-item
+    >
+    <igx-list-item
+      *ngFor="let t of transactionData"
+      style="border-bottom: 1px solid"
+    >
+      <span igxListLineTitle>{{ t.transactionDate | date : "medium" }}</span>
+      <span
+        class="text-primary"
+        igxListLineTitle
+        *ngIf="t.tansactionType == 0 && t.receiverAccountNumber == null"
+      >
+        TRANSFER FROM BANK
+      </span>
+      <span
+        style="color: #12cc12"
+        igxListLineTitle
+        *ngIf="t.tansactionType == 0 && t.receiverAccountNumber != null"
+      >
+        TRANSFER FROM {{ t.receiverAccountNumber }}
+      </span>
 
-        <td
-          *ngIf="transaction.tansactionType == 0; else elseblock"
-          style="color: #12cc12"
-        >
-          +Rs.{{ transaction.transactionAmount }}/-
-        </td>
-        <ng-template #elseblock>
-          <td style="color: red">-Rs.{{ transaction.transactionAmount }}/-</td>
-        </ng-template>
-        <td>
-          {{ transaction.transactionDescription }}
-        </td>
-      </tr>
-    </tbody>
-  </table>
+      <span
+        class="text-primary"
+        igxListLineTitle
+        *ngIf="t.tansactionType == 1 && t.receiverAccountNumber == null"
+      >
+        TRANSFER TO BANK
+      </span>
+      <span
+        class="text-danger"
+        igxListLineTitle
+        *ngIf="t.tansactionType == 1 && t.receiverAccountNumber != null"
+      >
+        TRANSFER TO {{ t.receiverAccountNumber }}
+      </span>
+      <span style="color: #12cc12" *ngIf="t.tansactionType == 0"
+        >+Rs.{{ t.transactionAmount }}/-</span
+      >
+      <span style="color: red" *ngIf="t.tansactionType == 1"
+        >-Rs.{{ t.transactionAmount }}/-</span
+      >
+      <hr style="color: red" />
+      <span igxListLineTitle>
+        {{ t.transactionDescription }}
+      </span>
+    </igx-list-item>
+  </igx-list>
 </div>
-
-
-<ng-template #elseTransaction>
-  <h2>No Transaction Yet!!!</h2>
-</ng-template>

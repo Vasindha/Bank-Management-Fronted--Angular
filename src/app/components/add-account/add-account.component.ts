@@ -21,7 +21,7 @@ export class AddAccountComponent {
     customerEmail: '',
     customerAadharno: null,
   };
-
+isLoadbtn:boolean = false;
   mobilePattern = '^[0-9]{10}$';
   aadharPattern = '^[0-9]{12}$';
   emailPattern = '[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}';
@@ -31,15 +31,19 @@ export class AddAccountComponent {
   ) {}
 
   onSubmit() {
+    this.isLoadbtn = true;
     this.userService.addCustomerData(this.custData).subscribe((data) => {
-      console.log(data);
+     
       this.toast.success('Added Successfully!', 'Success', 
       
       );
+      this.isLoadbtn = false;
     },
     
     error => {
+      console.log(error)
       this.toast.error(error['error'],"Error")
+      this.isLoadbtn = false;
     });
   }
 }

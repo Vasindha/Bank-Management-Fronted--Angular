@@ -9,33 +9,53 @@ import { TransactionService } from '../../services/transaction.service';
   styleUrl: './depo-withdraw.component.scss',
 })
 export class DepoWithdrawComponent {
+
+transactionData!:ITransaction;
   constructor(
     public dialogRef: MatDialogRef<DepoWithdrawComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private transactionService: TransactionService,
     private toaster: ToastrService
-  ) {}
+  ) {
+    this.transactionData= {
+      transactionId: null,
+      accountNumber: this.data['accountNumber'],
+      transactionDate: null,
+      tansactionType: 0,
+      transactionAmount: null,
+      transactionDescription: '',
+      receiverAccountNumber: null
+    };
+   
 
-  transactionData: ITransaction = {
-    transactionId: null,
-    accountNumber: this.data['accountNumber'],
-    transactionDate: null,
-    tansactionType: 0,
-    transactionAmount: null,
-    transactionDescription: '',
-  };
+  }
+ 
+
+
  
 
   doTransaction() {
-    this.transactionService.doTransaction(this.transactionData).subscribe(
-      (response) => {
-        this.toaster.success(response, 'Success');
-
-        
+    if(this.transactionData.tansactionType == 2){
+      this.transactionService.doTransfer(this.transactionData).subscribe(res => {
+        this.toaster.success(res,"Success")
       },
       (error) => {
-        this.toaster.error(error['error'], 'ERROR');
+        this.toaster.error(error.error,"Error")
       }
-    );
+      )
+    }
+else{
+  this.transactionService.doTransaction(this.transactionData).subscribe(
+    (response) => {
+      this.toaster.success(response, 'Success');
+
+      
+    },
+    (error) => {
+      this.toaster.error(error['error'], 'ERROR');
+    }
+  );
+}
+   
   }
 }

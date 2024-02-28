@@ -7,7 +7,8 @@ export class TransactionTypePipe implements PipeTransform {
 
   transform(value:number): string {
     if(value == 0) return 'Deposit'
-    return "Withdraw"
+    if(value==1)return "Withdraw"
+    return "Transfer"
    }
 
 }
