@@ -10,33 +10,25 @@ import { NotFountComponent } from './components/not-fount/not-fount.component';
 import { SearchCustomerComponent } from './components/search-customer/search-customer.component';
 import { CustomTransactionComponent } from './components/custom-transaction/custom-transaction.component';
 import { LoaderComponent } from './components/loader/loader.component';
-import { LoginGuard, } from './login-guard.guard';
 
 const routes: Routes = [
-  {path:'',component:CustomerTableComponent, 
-
-  // children:[
-  //   {path:':aadhar', component:CustomerTableComponent}
-  // ]
-},
-{path:'account/:id',component:AccountTableComponent,canActivate:[LoginGuard] },
-
-{path:'search',component:SearchCustomerComponent},
-{path:'transaction-detail/:id', component:TransactionTableComponent},
-
-{path:'form',component:AddAccountComponent},
-{path:'transaction', component:CustomTransactionComponent,
-children:[
-  {path:'transaction/:id', component:TransactionTableComponent}
-]
-},
-
-{path:'loader',component:LoaderComponent},
-{path:'**', component:NotFountComponent}
+  { path: '', component: CustomerTableComponent },
+  { path: 'account/:id', component: AccountTableComponent },
+  { path: 'search', component: SearchCustomerComponent },
+  { path: 'transaction-detail/:id', component: TransactionTableComponent },
+  { path: 'form', component: AddAccountComponent },
+  {
+    path: 'transaction',
+    component: CustomTransactionComponent,
+    children: [
+      { path: 'transaction/:id', component: TransactionTableComponent },
+    ],
+  },
+  { path: '**', component: NotFountComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

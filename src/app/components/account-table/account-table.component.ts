@@ -37,34 +37,28 @@ element: any;
     'INTEREST RATE',
     'ACTION',
     'TRANSACTIONS',
-
     'CHANGE STATUS',
   ];
  
   customerId!: number;
   accountType = 0;
-  addAccountData: ICustomer = {
-    customerId: null,
-    customerFirstname: '',
-    customerMiddletname: '',
-    customerLastname: '',
-    customerAddress: '',
-    customerDob: '',
-    customerMobileno: 98,
-    customerEmail: '',
-    customerAadharno: null,
-    accountType: null,
-  };
+  addNewAccountData :IAccount={
+    accountNumber: 0,
+    customerId: 0,
+    accountType: 0,
+    amount:0,
+    interestRate: 0,
+    openDate: null,
+    accountStatus: 0
+  }
+  
   ngAfterViewInit() {
     
     this.dataSource.paginator = this.paginator!;
   
   }
   ngOnInit(): void {
-    this.route.fragment.subscribe((addhar) => {
-      
-      this.addAccountData.customerAadharno = Number(addhar);
-    });
+    
     this.route.paramMap.subscribe(
       (params) => (this.customerId = Number(params.get('id')))
     );
@@ -72,6 +66,11 @@ element: any;
     this.customerService.getAccountData(this.customerId).subscribe((data) => {
       this.accountData = data;
       this.dataSource.data = data;
+    },
+    
+    (error)=> {
+      console.log(error);
+      
     });
   }
   changeStatus(accountNumber: number) {
@@ -96,19 +95,23 @@ element: any;
     });
   }
 
-  addAccount() {
-    this.addAccountData.customerDob = this.accountData[0].openDate;
-    this.addAccountData.accountType = this.accountType;
-
-    this.customerService.addCustomerData(this.addAccountData!).subscribe(
-      (res) => {
-        this.toaster.success(res, 'Success');
-        this.ngOnInit();
-      },
-      (error) => {
-        console.log(error);
-        this.toaster.error(error['error'], 'Error');
-      }
-    );
+addNewAccount(){
+  
+  this.addNewAccountData.accountType = this.accountType;
+  this.addNewAccountData.customerId = this.customerId;
+  this.addNewAccountData.openDate = this.accountData[0].openDate;
+  console.log(this.addNewAccountData);
+  
+  this.accountServce.addAccount(this.addNewAccountData).subscribe(res => {
+    this.toaster.success(res, 'Success');
+    this.ngOnInit();
+  },
+  (error) => {
+    console.log(error['error']);
+    this.toaster.error(error['error'], 'Error');
   }
+  )
+}
+
+  
 }

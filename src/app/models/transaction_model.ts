@@ -5,6 +5,8 @@ export interface ITransaction {
     receiverAccountNumber:number | null;
     transactionDate:        Date | null;
     tansactionType:         number | null;
-    transactionAmount:      number | null;
+    transactionAmount:      BigInt | null;
     transactionDescription: string | null;
+
+ 
 }

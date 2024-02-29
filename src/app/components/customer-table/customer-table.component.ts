@@ -1,4 +1,10 @@
-import { AfterContentInit, AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import {
+  AfterContentInit,
+  AfterViewInit,
+  Component,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { ICustomer } from '../../models/customer_model';
 import { CustomerService } from '../../services/customer.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -16,12 +22,12 @@ import { MatTableDataSource } from '@angular/material/table';
   templateUrl: './customer-table.component.html',
   styleUrl: './customer-table.component.scss',
 })
-export class CustomerTableComponent implements OnInit ,AfterViewInit {
+export class CustomerTableComponent implements OnInit, AfterViewInit {
   customerData!: ICustomer[];
-  isLoad=true;
-  @ViewChild(MatPaginator) paginator?:MatPaginator;
+  isLoad = true;
+  @ViewChild(MatPaginator) paginator?: MatPaginator;
   dataSource = new MatTableDataSource<ICustomer>(this.customerData);
-  displayedColumns :string[]= [
+  displayedColumns: string[] = [
     'CUSTOMER_NAME',
     'CUSTOMER_ADDRESS',
     'MOBILE',
@@ -34,7 +40,7 @@ export class CustomerTableComponent implements OnInit ,AfterViewInit {
   ];
   data!: { id: number; name: string };
   customerAadhar!: number;
-  customerAccount!: number;
+
   customerName!: string;
   aadharPattern = '^[0-9]{12}$';
   namePattern = '^[a-zA-Z]+';
@@ -45,53 +51,49 @@ export class CustomerTableComponent implements OnInit ,AfterViewInit {
     private rout: Router,
     private dialog: MatDialog
   ) {}
- 
 
   ngOnInit(): void {
-    this.customerService.getCustomerData().subscribe((data) => {
-      this.isLoad = false;
-      this.customerData = data;
-     
-      this.dataSource.data = this.customerData
-     
-    },
-    error => {
-      this.isLoad = true;
-    }
+    this.customerService.getCustomerData().subscribe(
+      (data) => {
+        this.isLoad = false;
+        this.customerData = data;
+
+        this.dataSource.data = this.customerData;
+      },
+      (error) => {
+        this.isLoad = true;
+      }
     );
   }
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator!;
   }
   openEdit(custData: ICustomer) {
-    // this.editService.setData(custData);
-    let dialgoRef = this.dialog.open(UpdateCustomerComponent, {
+   
+    let dialogRef = this.dialog.open(UpdateCustomerComponent, {
       height: '60%',
       width: '60%',
       data: custData,
     });
-    dialgoRef.afterClosed().subscribe((res) => {
+    dialogRef.afterClosed().subscribe((res) => {
       this.ngOnInit();
     });
   }
 
   openDelete(customerId: number) {
-    let dialgoRef= this.dialog.open(DeleteDialogComponent, {
+    let dialogRef = this.dialog.open(DeleteDialogComponent, {
       width: '25%',
       height: '30%',
-      data:customerId
+      data: customerId,
     });
-    dialgoRef.afterClosed().subscribe((res) => {
+    dialogRef.afterClosed().subscribe((res) => {
       this.ngOnInit();
     });
-    
   }
-
-  
 
   navigateToAccount(customerId: number, customerAadhar: number) {
     this.rout.navigate(['/account', customerId], {
-      fragment: customerAadhar.toString(),
+    
     });
   }
 }

@@ -1,7 +1,10 @@
+
 <div class="container-fluid col-md-10">
-  <igx-list>
-    <igx-list-item isHeader="true" style="font-size: large" class="text-info">
-      TRANSACTION DETAILS</igx-list-item
+  <igx-list #transactionTable>
+    <igx-list-item isHeader="true" style="font-size: large;justify-content: space-between;" class="text-info">
+     <span> TRANSACTION DETAILS</span> 
+     <button class="btn btn-primary" (click)="generatePdf()">Download</button>
+     </igx-list-item
     >
     <igx-list-item
       *ngFor="let t of transactionData"
