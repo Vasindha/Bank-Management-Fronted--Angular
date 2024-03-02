@@ -9,6 +9,7 @@ import { ICustomer } from '../../models/customer_model';
 import { ToastrService } from 'ngx-toastr';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-account-table',
@@ -23,7 +24,8 @@ element: any;
     private router: Router,
     private dialog: MatDialog,
     private accountServce: AccountService,
-    private toaster: ToastrService
+    private toaster: ToastrService,
+    private authService:AuthService
   ) {}
   accountData: IAccount[] = [];
   @ViewChild(MatPaginator) paginator?:MatPaginator;
@@ -69,7 +71,9 @@ element: any;
     },
     
     (error)=> {
-      console.log(error);
+     
+      
+      this.toaster.error(error.error,"Error");
       
     });
   }
@@ -78,7 +82,9 @@ element: any;
       (response) => {
         this.ngOnInit();
       },
-      (error) => {}
+      (error) => {
+        this.toaster.error(error.error,"Error")
+      }
     );
   }
 
@@ -100,14 +106,14 @@ addNewAccount(){
   this.addNewAccountData.accountType = this.accountType;
   this.addNewAccountData.customerId = this.customerId;
   this.addNewAccountData.openDate = this.accountData[0].openDate;
-  console.log(this.addNewAccountData);
+  
   
   this.accountServce.addAccount(this.addNewAccountData).subscribe(res => {
     this.toaster.success(res, 'Success');
     this.ngOnInit();
   },
   (error) => {
-    console.log(error['error']);
+    
     this.toaster.error(error['error'], 'Error');
   }
   )

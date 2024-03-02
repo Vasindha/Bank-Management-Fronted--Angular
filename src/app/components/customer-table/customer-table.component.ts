@@ -16,6 +16,7 @@ import { UpdateCustomerComponent } from '../update-customer/update-customer.comp
 import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-customer-table',
@@ -49,7 +50,8 @@ export class CustomerTableComponent implements OnInit, AfterViewInit {
     private router: ActivatedRoute,
     private toaster: ToastrService,
     private rout: Router,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -62,6 +64,7 @@ export class CustomerTableComponent implements OnInit, AfterViewInit {
       },
       (error) => {
         this.isLoad = true;
+        this.toaster.error(error.error, 'Error');
       }
     );
   }
@@ -69,7 +72,6 @@ export class CustomerTableComponent implements OnInit, AfterViewInit {
     this.dataSource.paginator = this.paginator!;
   }
   openEdit(custData: ICustomer) {
-   
     let dialogRef = this.dialog.open(UpdateCustomerComponent, {
       height: '60%',
       width: '60%',
@@ -92,8 +94,6 @@ export class CustomerTableComponent implements OnInit, AfterViewInit {
   }
 
   navigateToAccount(customerId: number, customerAadhar: number) {
-    this.rout.navigate(['/account', customerId], {
-    
-    });
+    this.rout.navigate(['/account', customerId], {});
   }
 }

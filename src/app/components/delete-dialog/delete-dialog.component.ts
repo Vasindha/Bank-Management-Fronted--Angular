@@ -23,6 +23,10 @@ export class DeleteDialogComponent implements OnInit{
     this.customerService.deleteCustomer(this.customerId).subscribe((data) => {
       this.toaster.success(data, 'Customer Deleted');
       this.ngOnInit();
+    },
+    
+    error => {
+      this.toaster.error(error.error,"Error")
     });
   }
 }

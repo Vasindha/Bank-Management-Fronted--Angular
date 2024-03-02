@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { CustomerService } from '../../services/customer.service';
 import { ICustomer } from '../../models/customer_model';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-add-account',
@@ -27,7 +28,8 @@ isLoadbtn:boolean = false;
   emailPattern = '[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}';
   constructor(
     private userService: CustomerService,
-    private toast: ToastrService
+    private toast: ToastrService,
+    private authService:AuthService
   ) {}
 
   onSubmit() {
@@ -41,9 +43,12 @@ isLoadbtn:boolean = false;
     },
     
     error => {
-      console.log(error)
+     
       this.toast.error(error['error'],"Error")
       this.isLoadbtn = false;
+     
+      this.toast.error(error.error,"Error");
+      
     });
   }
 }

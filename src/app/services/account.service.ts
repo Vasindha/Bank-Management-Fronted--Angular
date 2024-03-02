@@ -9,7 +9,7 @@ import { IAccount } from '../models/account_model';
 export class AccountService {
 
   constructor(private httpService:HttpClient) { }
-accountUrl = "https://localhost:7114/api/Account"
+private accountUrl = "https://localhost:7114/api/Account"
 
 addAccount(account:IAccount):Observable<string>{
   return this.httpService.post(`${this.accountUrl}/Account`,account,{responseType:'text'})

@@ -16,7 +16,7 @@ import { TransactionTypePipe } from './pipes/transaction-type.pipe';
 import { AccountTypePipe } from './pipes/account-type.pipe';
 import { ToastrModule, provideToastr } from 'ngx-toastr';
 import { BrowserAnimationsModule, provideAnimations } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule, provideHttpClient, withInterceptors } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { NgxBootstrapIconsModule } from 'ngx-bootstrap-icons';
 import { SearchCustomerComponent } from './components/search-customer/search-customer.component';
@@ -29,10 +29,13 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import {IgxListModule} from 'igniteui-angular';
+import { CustomerModule } from './modules/customer/customer.module';
+import { TokenInterceptor } from './interceptor/token.interceptor';
+
 @NgModule({
   declarations: [
     AppComponent,
-    CustomerTableComponent,
+   CustomerTableComponent,
     AddAccountComponent,
     NavBarComponent,
     NotFountComponent,
@@ -63,10 +66,13 @@ import {IgxListModule} from 'igniteui-angular';
     MatDialogActions,
     MatTableModule,
     MatPaginatorModule,
-    IgxListModule
+    IgxListModule,
+    
    
   ],
-  providers: [DatePipe, [provideToastr(), provideAnimations()]],
+  providers: [
+   {provide:HTTP_INTERCEPTORS,useClass:TokenInterceptor,multi:true},
+    DatePipe, [provideToastr(), provideAnimations()]],
   bootstrap: [AppComponent]
 })
 export class AppModule {

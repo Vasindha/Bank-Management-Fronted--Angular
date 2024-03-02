@@ -10,9 +10,16 @@ import { NotFountComponent } from './components/not-fount/not-fount.component';
 import { SearchCustomerComponent } from './components/search-customer/search-customer.component';
 import { CustomTransactionComponent } from './components/custom-transaction/custom-transaction.component';
 import { LoaderComponent } from './components/loader/loader.component';
+import { HomeComponent } from './components/home/home.component';
+import { NavBarComponent } from './components/nav-bar/nav-bar.component';
+
+
 
 const routes: Routes = [
-  { path: '', component: CustomerTableComponent },
+  
+  
+  {path:'',component:HomeComponent},
+  { path: 'customer', component: CustomerTableComponent },
   { path: 'account/:id', component: AccountTableComponent },
   { path: 'search', component: SearchCustomerComponent },
   { path: 'transaction-detail/:id', component: TransactionTableComponent },

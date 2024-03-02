@@ -34,7 +34,41 @@
         </div>
       </nav>
     </div>
-
+    
+    <!-- <div class="col">
+      <nav class="navbar navbar-light ">
+        <div class="container-fluid row mb-3">
+          <form #accountForm="ngForm" class="d-flex input-group w-auto">
+            <input
+              type="number"
+              class="form-control rounded"
+              [(ngModel)]="customerAccount"
+              [ngModelOptions]="{ standalone: true }"
+              #caccount="ngModel"
+              placeholder="Enter Account Number"
+              aria-label="Search"
+              pattern="{{ aadharPattern }}"
+            />
+            <div
+              *ngIf="caccount.errors?.['pattern']"
+              class="alert alert-danger"
+              style="height: 50px"
+            >
+              Account Number must be 12 digits
+            </div>
+            <button
+              [disabled]="!caccount.touched || !accountForm.form.valid "
+              class="btn btn-info"
+              style="margin-left: 20px"
+              routerLink="/search"
+              [queryParams]="{aadharNumber:customerAccount}"
+            >
+              search
+            </button>
+          </form>
+        </div>
+      </nav>
+    </div> -->
     <div class="col">
       <nav class="navbar navbar-light ">
         <div class="container-fluid row mb-3">

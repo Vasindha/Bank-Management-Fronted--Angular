@@ -1,1 +1,8 @@
-<app-nav-bar></app-nav-bar>
+
+
+<app-nav-bar *ngIf="isLogin"></app-nav-bar>
+<app-login *ngIf="isLogin==false"></app-login>
+
+
+
+    

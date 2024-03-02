@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ICustomer } from '../models/customer_model';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, catchError } from 'rxjs';
 import { IAccount } from '../models/account_model';
 
 @Injectable({
@@ -9,9 +9,9 @@ import { IAccount } from '../models/account_model';
 })
 export class CustomerService {
 
-  customerUrl ="https://localhost:7114/api/Customer";
+  private customerUrl ="https://localhost:7114/api/Customer";
 
-  addAccountUrl = "https://localhost:7114/api/Account";
+  private addAccountUrl = "https://localhost:7114/api/Account";
  
   
  
@@ -23,7 +23,10 @@ export class CustomerService {
     }
   
     addCustomerData(data:ICustomer):Observable<any>{
-        return this.httpService.post(this.addAccountUrl,data,{responseType:'text'});
+        return this.httpService.post(this.addAccountUrl,data,{responseType:'text'}).pipe(catchError((error)=>{
+          
+          throw new Error("Internal server Error")
+        }));
     }
   
     getAccountData(customerId:number):Observable<IAccount[]>{

@@ -11,7 +11,7 @@ export class TransactionService {
 
   constructor(private httpService:HttpClient) { }
 
-  transactionUrl = "https://localhost:7114/api/Transaction"
+  private transactionUrl = "https://localhost:7114/api/Transaction"
 
   getTransactionsByAccountNumber(accountNumber:number):Observable<ITransaction[]>{
     return this.httpService.get<ITransaction[]>(`${this.transactionUrl}/${accountNumber}`)
